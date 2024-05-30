@@ -77,6 +77,7 @@ export default function Hero() {
 						Subscribe to get discount or free consultation.
 					</Typography>
 					<Stack
+						component="form"
 						direction={{ xs: "column", sm: "row" }}
 						alignSelf="center"
 						spacing={1}
@@ -112,7 +113,7 @@ export default function Hero() {
 					sx={(theme) => ({
 						mt: { xs: 8, sm: 10 },
 						alignSelf: "center",
-						height: { xs: 200, sm: 700 },
+						height: { xs: 300, sm: 700 },
 						width: "100%",
 						backgroundImage:
 							theme.palette.mode === "light"
