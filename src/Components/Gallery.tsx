@@ -6,6 +6,8 @@ import {
 	Container,
 	useMediaQuery,
 	useTheme,
+	Modal,
+	Fade,
 } from "@mui/material";
 
 const itemData = [
@@ -59,10 +61,23 @@ const itemData = [
 	},
 ];
 
-const WorkSamples = () => {
+const Gallery = () => {
+	const [open, setOpen] = React.useState(false);
+	const [selectedImage, setSelectedImage] = React.useState("");
+
 	const theme = useTheme();
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 	const images = isSmallScreen ? itemData.slice(0, 2) : itemData;
+
+	const handleOpen = (image) => {
+		setSelectedImage(image);
+		setOpen(true);
+	};
+
+	const handleCLose = () => {
+		setOpen(false);
+	};
+
 	return (
 		<Container>
 			<Typography component="p" variant="h6" align="center" color="text.secondary">
@@ -76,12 +91,35 @@ const WorkSamples = () => {
 							src={`${item.img}`}
 							alt={item.title}
 							loading="lazy"
+							onClick={() => {
+								handleOpen(item.img);
+							}}
 						/>
 					</ImageListItem>
 				))}
 			</ImageList>
+			<Modal
+				open={open}
+				onClose={handleCLose}
+				aria-labelledby="work-sample"
+				aria-describedby="work-sample"
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+				disableScrollLock={true}
+			>
+				<Fade in={open} timeout={500}>
+					<img
+						src={selectedImage}
+						alt={selectedImage}
+						style={{ maxHeight: "90%", maxWidth: "90%", outline: "none" }}
+					/>
+				</Fade>
+			</Modal>
 		</Container>
 	);
 };
 
-export default WorkSamples;
+export default Gallery;
