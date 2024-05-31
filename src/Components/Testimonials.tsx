@@ -1,4 +1,5 @@
-import * as React from "react";
+import { useState } from "react";
+import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -7,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import useShowMore from "../Hooks/useShowMore";
 
 const userTestimonials = [
 	{
@@ -54,6 +56,9 @@ const userTestimonials = [
 ];
 
 export default function Testimonials() {
+	const [items, setItems] = useState(userTestimonials);
+	const [itemsToShow, showMore] = useShowMore(items, 4);
+
 	return (
 		<Container
 			id="testimonials"
@@ -83,7 +88,7 @@ export default function Testimonials() {
 				</Typography>
 			</Box>
 			<Grid container spacing={2}>
-				{userTestimonials.map((testimonial, index) => (
+				{itemsToShow.map((testimonial, index) => (
 					<Grid item xs={12} sm={6} md={4} key={index} sx={{ display: "flex" }}>
 						<Card
 							sx={{
@@ -117,6 +122,13 @@ export default function Testimonials() {
 					</Grid>
 				))}
 			</Grid>
+			{itemsToShow.length < items.length && (
+				<Box textAlign="center" my={2}>
+					<Button variant="text" onClick={showMore}>
+						Show More
+					</Button>
+				</Box>
+			)}
 		</Container>
 	);
 }
