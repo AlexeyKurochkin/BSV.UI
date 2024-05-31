@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useSwipeable } from "react-swipeable";
 import CloseIcon from "@mui/icons-material/Close";
+import useShowMore from "../Hooks/useShowMore";
 
 const itemData = [
 	{
@@ -69,14 +70,11 @@ const itemData = [
 const Gallery = () => {
 	const [open, setOpen] = useState(false);
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-	const [displayedImageCount, setDisplayedImageCount] = useState(4);
 
 	const theme = useTheme();
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 	const allImages = itemData;
-	const imagesToShow = isSmallScreen
-		? allImages.slice(0, displayedImageCount)
-		: allImages;
+	const [itemsToShow, showMore] = useShowMore(allImages, 4);
 
 	const handleOpen = (index) => {
 		setSelectedImageIndex(index);
@@ -85,10 +83,6 @@ const Gallery = () => {
 
 	const handleClose = () => {
 		setOpen(false);
-	};
-
-	const handleShowMore = () => {
-		setDisplayedImageCount((prevCount) => prevCount + 4);
 	};
 
 	const handlers = useSwipeable({
@@ -101,8 +95,7 @@ const Gallery = () => {
 	const handleSwipe = (swipeDirection) => {
 		let newIndex = selectedImageIndex + swipeDirection;
 		newIndex =
-			((newIndex % imagesToShow.length) + imagesToShow.length) %
-			imagesToShow.length; // Cycle through the images
+			((newIndex % itemsToShow.length) + itemsToShow.length) % itemsToShow.length; // Cycle through the images
 		setSelectedImageIndex(newIndex);
 	};
 
@@ -112,7 +105,7 @@ const Gallery = () => {
 				Examples of my work
 			</Typography>
 			<ImageList cols={isSmallScreen ? 2 : 6} variant="standard">
-				{imagesToShow.map((item, index) => (
+				{itemsToShow.map((item, index) => (
 					<ImageListItem key={item.img}>
 						<img
 							srcSet={`${item.img}`}
@@ -126,9 +119,9 @@ const Gallery = () => {
 					</ImageListItem>
 				))}
 			</ImageList>
-			{isSmallScreen && displayedImageCount < allImages.length && (
+			{itemsToShow.length < allImages.length && (
 				<Box textAlign="center" my={2}>
-					<Button variant="text" onClick={handleShowMore}>
+					<Button variant="text" onClick={showMore}>
 						Show More
 					</Button>
 				</Box>
