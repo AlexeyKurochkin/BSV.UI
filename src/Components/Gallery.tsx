@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
 	ImageList,
 	ImageListItem,
@@ -8,7 +8,12 @@ import {
 	useTheme,
 	Modal,
 	Fade,
+	Box,
+	IconButton,
+	Button,
 } from "@mui/material";
+import { useSwipeable } from "react-swipeable";
+import CloseIcon from "@mui/icons-material/Close";
 
 const itemData = [
 	{
@@ -62,20 +67,43 @@ const itemData = [
 ];
 
 const Gallery = () => {
-	const [open, setOpen] = React.useState(false);
-	const [selectedImage, setSelectedImage] = React.useState("");
+	const [open, setOpen] = useState(false);
+	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+	const [displayedImageCount, setDisplayedImageCount] = useState(4);
 
 	const theme = useTheme();
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-	const images = isSmallScreen ? itemData.slice(0, 2) : itemData;
+	const allImages = itemData;
+	const imagesToShow = isSmallScreen
+		? allImages.slice(0, displayedImageCount)
+		: allImages;
 
-	const handleOpen = (image) => {
-		setSelectedImage(image);
+	const handleOpen = (index) => {
+		setSelectedImageIndex(index);
 		setOpen(true);
 	};
 
-	const handleCLose = () => {
+	const handleClose = () => {
 		setOpen(false);
+	};
+
+	const handleShowMore = () => {
+		setDisplayedImageCount((prevCount) => prevCount + 4);
+	};
+
+	const handlers = useSwipeable({
+		onSwipedLeft: () => handleSwipe(1),
+		onSwipedRight: () => handleSwipe(-1),
+		preventDefaultTouchmoveEvent: true,
+		trackMouse: true,
+	});
+
+	const handleSwipe = (swipeDirection) => {
+		let newIndex = selectedImageIndex + swipeDirection;
+		newIndex =
+			((newIndex % imagesToShow.length) + imagesToShow.length) %
+			imagesToShow.length; // Cycle through the images
+		setSelectedImageIndex(newIndex);
 	};
 
 	return (
@@ -84,7 +112,7 @@ const Gallery = () => {
 				Examples of my work
 			</Typography>
 			<ImageList cols={isSmallScreen ? 2 : 6} variant="standard">
-				{images.map((item) => (
+				{imagesToShow.map((item, index) => (
 					<ImageListItem key={item.img}>
 						<img
 							srcSet={`${item.img}`}
@@ -92,15 +120,22 @@ const Gallery = () => {
 							alt={item.title}
 							loading="lazy"
 							onClick={() => {
-								handleOpen(item.img);
+								handleOpen(index);
 							}}
 						/>
 					</ImageListItem>
 				))}
 			</ImageList>
+			{isSmallScreen && displayedImageCount < allImages.length && (
+				<Box textAlign="center" my={2}>
+					<Button variant="text" onClick={handleShowMore}>
+						Show More
+					</Button>
+				</Box>
+			)}
 			<Modal
 				open={open}
-				onClose={handleCLose}
+				onClose={handleClose}
 				aria-labelledby="work-sample"
 				aria-describedby="work-sample"
 				sx={{
@@ -111,11 +146,49 @@ const Gallery = () => {
 				disableScrollLock={true}
 			>
 				<Fade in={open} timeout={500}>
-					<img
-						src={selectedImage}
-						alt={selectedImage}
-						style={{ maxHeight: "90%", maxWidth: "90%", outline: "none" }}
-					/>
+					<Box
+						{...handlers}
+						sx={{
+							outline: "none",
+							display: "block",
+							justifyContent: "center",
+							alignItems: "center",
+							maxHeight: "90%",
+							maxWidth: "90%",
+						}}
+					>
+						<Box sx={{ position: "relative" }}>
+							<img
+								{...handlers}
+								src={allImages[selectedImageIndex].img}
+								alt={allImages[selectedImageIndex].img}
+								style={{
+									width: "100%",
+									height: "100%",
+									maxHeight: "90vh",
+									maxWidth: "90vh",
+									objectFit: "contain",
+									outline: "none",
+								}}
+							/>
+							<IconButton
+								aria-label="close"
+								onClick={handleClose}
+								sx={{
+									position: "absolute",
+									right: 8,
+									top: 8,
+									color: (theme) => theme.palette.grey[100],
+									backgroundColor: (theme) => theme.palette.grey[600],
+									"&:hover": {
+										backgroundColor: "rgba(0, 0, 0, 0.8)",
+									},
+								}}
+							>
+								<CloseIcon />
+							</IconButton>
+						</Box>
+					</Box>
 				</Fade>
 			</Modal>
 		</Container>
