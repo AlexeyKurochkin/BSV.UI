@@ -18,7 +18,7 @@ const socials = [
 
 export default function Socials() {
 	return (
-		<Box id="logoCollection" sx={{ py: 4, pt: 0 }}>
+		<Box id="socials" sx={{ py: 4, pt: 0 }}>
 			<Typography variant="h4" component="p" align="center" color="text.secondary">
 				Find me in
 			</Typography>
