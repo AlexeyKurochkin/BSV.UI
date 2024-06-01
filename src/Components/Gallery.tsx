@@ -18,6 +18,11 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import useShowMore from "../Hooks/useShowMore";
 
+interface Image {
+	img: string;
+	title: string;
+}
+
 const itemData = [
 	{
 		img: "WorkSamples/1.jpg",
@@ -78,7 +83,7 @@ const Gallery = () => {
 	const allImages = itemData;
 	const [itemsToShow, showMore] = useShowMore(allImages, 4);
 
-	const handleOpen = (index) => {
+	const handleOpen = (index: number) => {
 		setSelectedImageIndex(index);
 		setOpen(true);
 	};
@@ -90,11 +95,10 @@ const Gallery = () => {
 	const handlers = useSwipeable({
 		onSwipedLeft: () => handleSwipe(1),
 		onSwipedRight: () => handleSwipe(-1),
-		preventDefaultTouchmoveEvent: true,
-		trackMouse: true,
+		trackMouse: false,
 	});
 
-	const handleSwipe = (swipeDirection) => {
+	const handleSwipe = (swipeDirection: number) => {
 		let newIndex = selectedImageIndex + swipeDirection;
 		newIndex =
 			((newIndex % itemsToShow.length) + itemsToShow.length) % itemsToShow.length; // Cycle through the images
@@ -107,7 +111,7 @@ const Gallery = () => {
 				Examples of my work
 			</Typography>
 			<ImageList cols={isSmallScreen ? 2 : 6} variant="standard">
-				{itemsToShow.map((item, index) => (
+				{itemsToShow.map((item: Image, index: number) => (
 					<ImageListItem key={item.img}>
 						<img
 							srcSet={`${item.img}`}

@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import FacebookIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { scrollToSectionBySectionId } from "../Utils/HelperFunctions";
+import { SyntheticEvent } from "react";
 
 const logoStyle = {
 	width: "140px",
@@ -30,10 +31,7 @@ function Copyright() {
 }
 
 export default function Footer() {
-	const scrollToSection = (
-		e: MouseEvent<HTMLAnchorElement, MouseEvent>,
-		sectionId: string
-	) => {
+	const scrollToSection = (e: SyntheticEvent, sectionId: string) => {
 		e.preventDefault();
 		scrollToSectionBySectionId(sectionId);
 	};
