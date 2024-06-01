@@ -92,6 +92,22 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
 							<img src={"Logo.png"} style={logoStyle} alt="logo of sitemark" />
 							<Box sx={{ display: { xs: "none", md: "flex" } }}>
 								<MenuItem
+									onClick={() => scrollToSection("hero")}
+									sx={{ py: "6px", px: "12px" }}
+								>
+									<Typography variant="body2" color="text.primary">
+										Home
+									</Typography>
+								</MenuItem>
+								<MenuItem
+									onClick={() => scrollToSection("gallery")}
+									sx={{ py: "6px", px: "12px" }}
+								>
+									<Typography variant="body2" color="text.primary">
+										Gallery
+									</Typography>
+								</MenuItem>
+								<MenuItem
 									onClick={() => scrollToSection("features")}
 									sx={{ py: "6px", px: "12px" }}
 								>
@@ -115,14 +131,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
 										Highlights
 									</Typography>
 								</MenuItem>
-								<MenuItem
-									onClick={() => scrollToSection("pricing")}
-									sx={{ py: "6px", px: "12px" }}
-								>
-									<Typography variant="body2" color="text.primary">
-										Pricing
-									</Typography>
-								</MenuItem>
+
 								<MenuItem
 									onClick={() => scrollToSection("faq")}
 									sx={{ py: "6px", px: "12px" }}
