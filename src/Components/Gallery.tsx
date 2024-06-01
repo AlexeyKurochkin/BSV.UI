@@ -100,7 +100,7 @@ const Gallery = () => {
 	};
 
 	return (
-		<Container>
+		<Container id="gallery">
 			<Typography component="p" variant="h6" align="center" color="text.secondary">
 				Examples of my work
 			</Typography>
