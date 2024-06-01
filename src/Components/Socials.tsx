@@ -7,19 +7,19 @@ import IconButton from "@mui/material/IconButton";
 
 const socials = [
 	{
-		icon: <InstagramIcon sx={{ fontSize: 150 }} />,
+		icon: <InstagramIcon sx={{ fontSize: 100 }} />,
 		link: "https://www.instagram.com/nastia.besson/",
 	},
 	{
-		icon: <FacebookIcon sx={{ fontSize: 150 }} />,
+		icon: <FacebookIcon sx={{ fontSize: 100 }} />,
 		link: "https://www.facebook.com/profile.php?id=61550469448007",
 	},
 ];
 
 export default function Socials() {
 	return (
-		<Box id="logoCollection" sx={{ py: 4 }}>
-			<Typography variant="h2" component="p" align="center" color="text.secondary">
+		<Box id="logoCollection" sx={{ py: 4, pt: 0 }}>
+			<Typography variant="h4" component="p" align="center" color="text.secondary">
 				Find me in
 			</Typography>
 			<Grid container justifyContent="center" sx={{ mt: 0.5, opacity: 0.6 }}>
