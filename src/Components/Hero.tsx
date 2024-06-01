@@ -100,13 +100,6 @@ export default function Hero() {
 							Get Discount
 						</Button>
 					</Stack>
-					<Typography variant="caption" textAlign="center" sx={{ opacity: 0.8 }}>
-						By clicking &quot;Get Discount&quot; you agree to our&nbsp;
-						<Link href="#" color="primary">
-							Terms & Conditions
-						</Link>
-						.
-					</Typography>
 				</Stack>
 				<Box
 					id="image"
