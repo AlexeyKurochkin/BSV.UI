@@ -14,6 +14,12 @@ import SupportAgentRoundedIcon from "@mui/icons-material/SupportAgentRounded";
 import ThumbUpAltRoundedIcon from "@mui/icons-material/ThumbUpAltRounded";
 import useShowMore from "../Hooks/useShowMore";
 
+interface Highlight {
+	icon: JSX.Element;
+	title: string;
+	description: string;
+}
+
 const highlightItems = [
 	{
 		icon: <SettingsSuggestRoundedIcon />,
@@ -54,7 +60,7 @@ const highlightItems = [
 ];
 
 export default function Highlights() {
-	const [items, setItems] = useState(highlightItems);
+	const [items] = useState<Highlight[]>(highlightItems);
 	const [itemsToShow, showMore] = useShowMore(items, 4);
 
 	return (
@@ -90,7 +96,7 @@ export default function Highlights() {
 					</Typography>
 				</Box>
 				<Grid container spacing={2.5}>
-					{itemsToShow.map((item, index) => (
+					{itemsToShow.map((item: Highlight, index: number) => (
 						<Grid item xs={12} sm={6} md={4} key={index}>
 							<Stack
 								direction="column"

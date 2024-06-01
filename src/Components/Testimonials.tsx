@@ -10,7 +10,14 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import useShowMore from "../Hooks/useShowMore";
 
-const userTestimonials = [
+interface Testimonial {
+	avatar: JSX.Element;
+	name: string;
+	occupation: string;
+	testimonial: string;
+}
+
+const userTestimonials: Testimonial[] = [
 	{
 		avatar: <Avatar alt="Remy Sharp" src="" />,
 		name: "Remy Sharp",
@@ -56,7 +63,7 @@ const userTestimonials = [
 ];
 
 export default function Testimonials() {
-	const [items, setItems] = useState(userTestimonials);
+	const [items] = useState<Testimonial[]>(userTestimonials);
 	const [itemsToShow, showMore] = useShowMore(items, 4);
 
 	return (
@@ -88,7 +95,7 @@ export default function Testimonials() {
 				</Typography>
 			</Box>
 			<Grid container spacing={2}>
-				{itemsToShow.map((testimonial, index) => (
+				{itemsToShow.map((testimonial: Testimonial, index: number) => (
 					<Grid item xs={12} sm={6} md={4} key={index} sx={{ display: "flex" }}>
 						<Card
 							sx={{

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
 
-const useShowMore = (items, initialCount) => {
+const useShowMore = (items: any, initialCount: number) => {
 	const theme = useTheme();
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
