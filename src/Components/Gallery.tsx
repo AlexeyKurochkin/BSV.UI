@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import { useSwipeable } from "react-swipeable";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import useShowMore from "../Hooks/useShowMore";
 
 const itemData = [
@@ -151,6 +153,36 @@ const Gallery = () => {
 						}}
 					>
 						<Box sx={{ position: "relative" }}>
+							<IconButton
+								aria-label="close"
+								onClick={() => handleSwipe(-1)}
+								sx={{
+									position: "absolute",
+									left: 2,
+									top: "45%",
+									color: (theme) => theme.palette.grey[100],
+									"&:hover": {
+										backgroundColor: "rgba(0, 0, 0, 0.3)",
+									},
+								}}
+							>
+								<ArrowBackIosNewIcon sx={{ fontSize: "60px" }} />
+							</IconButton>
+							<IconButton
+								aria-label="close"
+								onClick={() => handleSwipe(1)}
+								sx={{
+									position: "absolute",
+									right: 2,
+									top: "45%",
+									color: (theme) => theme.palette.grey[100],
+									"&:hover": {
+										backgroundColor: "rgba(0, 0, 0, 0.3)",
+									},
+								}}
+							>
+								<ArrowForwardIosIcon sx={{ fontSize: "60px" }} />
+							</IconButton>
 							<img
 								{...handlers}
 								src={allImages[selectedImageIndex].img}
