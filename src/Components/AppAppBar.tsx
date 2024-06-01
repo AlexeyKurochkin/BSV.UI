@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
+import { scrollToSectionBySectionId } from "../Utils/HelperFunctions";
 
 const logoStyle = {
 	width: "50px",
@@ -33,17 +34,8 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
 	};
 
 	const scrollToSection = (sectionId: string) => {
-		const sectionElement = document.getElementById(sectionId);
-		const offset = 128;
-		if (sectionElement) {
-			const targetScroll = sectionElement.offsetTop - offset;
-			sectionElement.scrollIntoView({ behavior: "smooth" });
-			window.scrollTo({
-				top: targetScroll,
-				behavior: "smooth",
-			});
-			setOpen(false);
-		}
+		scrollToSectionBySectionId(sectionId);
+		setOpen(false);
 	};
 
 	return (
@@ -131,7 +123,6 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
 										Highlights
 									</Typography>
 								</MenuItem>
-
 								<MenuItem
 									onClick={() => scrollToSection("faq")}
 									sx={{ py: "6px", px: "12px" }}
