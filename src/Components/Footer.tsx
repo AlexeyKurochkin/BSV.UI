@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -11,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import FacebookIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/X";
+import { scrollToSectionBySectionId } from "../Utils/HelperFunctions";
 
 const logoStyle = {
 	width: "140px",
@@ -22,13 +22,26 @@ function Copyright() {
 	return (
 		<Typography variant="body2" color="text.secondary" mt={1}>
 			{"Copyright © "}
-			<Link href="https://mui.com/">Sitemark&nbsp;</Link>
+			<Link
+				target="_blank"
+				href="https://www.linkedin.com/in/alexey-kurochkin-dev/"
+			>
+				AK Productions&nbsp;
+			</Link>
 			{new Date().getFullYear()}
 		</Typography>
 	);
 }
 
 export default function Footer() {
+	const scrollToSection = (
+		e: MouseEvent<HTMLAnchorElement, MouseEvent>,
+		sectionId: string
+	) => {
+		e.preventDefault();
+		scrollToSectionBySectionId(sectionId);
+	};
+
 	return (
 		<Container
 			sx={{
@@ -96,19 +109,39 @@ export default function Footer() {
 					<Typography variant="body2" fontWeight={600}>
 						Product
 					</Typography>
-					<Link color="text.secondary" href="#">
+					<Link
+						color="text.secondary"
+						href="#"
+						onClick={(e) => scrollToSection(e, "gallery")}
+					>
+						Gallery
+					</Link>
+					<Link
+						color="text.secondary"
+						href="#"
+						onClick={(e) => scrollToSection(e, "features")}
+					>
 						Features
 					</Link>
-					<Link color="text.secondary" href="#">
+					<Link
+						color="text.secondary"
+						href="#gallery"
+						onClick={(e) => scrollToSection(e, "testimonials")}
+					>
 						Testimonials
 					</Link>
-					<Link color="text.secondary" href="#">
+					<Link
+						color="text.secondary"
+						href="#"
+						onClick={(e) => scrollToSection(e, "highlights")}
+					>
 						Highlights
 					</Link>
-					<Link color="text.secondary" href="#">
-						Pricing
-					</Link>
-					<Link color="text.secondary" href="#">
+					<Link
+						color="text.secondary"
+						href="#"
+						onClick={(e) => scrollToSection(e, "faq")}
+					>
 						FAQs
 					</Link>
 				</Box>
