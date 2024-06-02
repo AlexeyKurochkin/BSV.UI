@@ -106,7 +106,7 @@ export default function Features() {
 								minHeight: 280,
 							}}
 						/>
-						<Box sx={{ px: 2, pb: 2 }}>
+						<Box sx={{ px: 2, pb: 2, pt: { xs: 2 } }}>
 							<Typography color="text.primary" variant="body2" fontWeight="bold">
 								{selectedFeature.title}
 							</Typography>
