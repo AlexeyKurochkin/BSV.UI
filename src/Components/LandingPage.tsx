@@ -14,12 +14,20 @@ import FAQ from "./FAQ";
 import Footer from "./Footer";
 import Gallery from "./Gallery";
 
+const storageThemeVariable = "theme";
+
 export default function LandingPage() {
-	const [mode, setMode] = React.useState<PaletteMode>("light");
+	const [mode, setMode] = React.useState<PaletteMode>(
+		(localStorage.getItem(storageThemeVariable) as PaletteMode) || "light"
+	);
 	const defaultTheme = createTheme({ palette: { mode } });
 
 	const toggleColorMode = () => {
-		setMode((prev) => (prev === "dark" ? "light" : "dark"));
+		setMode((prev: string) => {
+			const newMode = prev === "dark" ? "light" : "dark";
+			localStorage.setItem(storageThemeVariable, newMode);
+			return newMode;
+		});
 	};
 
 	return (
