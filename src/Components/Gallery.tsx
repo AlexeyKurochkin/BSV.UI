@@ -170,7 +170,7 @@ const Gallery = () => {
 									},
 								}}
 							>
-								<ArrowBackIosNewIcon sx={{ fontSize: "60px" }} />
+								<ArrowBackIosNewIcon sx={{ fontSize: { xs: "40px", sm: "60px" } }} />
 							</IconButton>
 							<IconButton
 								aria-label="close"
@@ -185,7 +185,7 @@ const Gallery = () => {
 									},
 								}}
 							>
-								<ArrowForwardIosIcon sx={{ fontSize: "60px" }} />
+								<ArrowForwardIosIcon sx={{ fontSize: { xs: "40px", sm: "60px" } }} />
 							</IconButton>
 							<img
 								{...handlers}
